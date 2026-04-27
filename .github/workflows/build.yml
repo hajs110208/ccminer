@@ -12,10 +12,10 @@ jobs:
         run: sudo apt update && sudo apt install libcurl4-openssl-dev libssl-dev libjansson-dev automake autotools-dev build-essential -y
 
       - name: Build
-        run: chmod +x ./${{ github.workspace }}/ccminer/build.sh && ./${{ github.workspace }}/ccminer/build.sh
+        run: chmod +x ./${{ github.workspace }}/build.sh && ./${{ github.workspace }}/build.sh
      
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v4
         with:
-         name: ccminer        # The name given to your uploaded file(s)
-         path: ${{ github.workspace }}/ccminer/ccminer
+         name: build-ubuntu-amd64
+         path: ${{ github.workspace }}/ccminer
