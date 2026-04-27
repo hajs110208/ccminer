@@ -2,7 +2,7 @@ name: Build ccminer
 on: workflow_dispatch
 
 jobs:
-  build:
+  build-ubuntu-amd64:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -18,4 +18,24 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
          name: build-ubuntu-amd64
+         path: ccminer
+
+  build-ubuntu-arm64:
+    runs-on: ubuntu-24.04-arm
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ARM
+
+      - name: Prepare build
+        run: sudo apt update && sudo apt install libcurl4-openssl-dev libssl-dev libjansson-dev automake autotools-dev build-essential -y
+
+      - name: Build
+        run: chmod +x ./build.sh && ./build.sh
+     
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+         name: build-ubuntu-arm64
          path: ccminer
